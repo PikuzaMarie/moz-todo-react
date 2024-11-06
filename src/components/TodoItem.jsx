@@ -14,11 +14,11 @@ export default function TodoItem({ todo, toggleComplete, deleteItem }) {
 					display: "flex",
 					flexDirection: "row",
 					alignItems: "center",
-				}}>
+				}}
+				onClick={toggleComplete}>
 				<Checkbox
 					id={todo.id}
 					checked={todo.complete}
-					onChange={toggleComplete}
 				/>
 				<Typography
 					style={{
