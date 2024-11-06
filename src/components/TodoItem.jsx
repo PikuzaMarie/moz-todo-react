@@ -1,16 +1,19 @@
-import { Typography, Checkbox, IconButton } from "@mui/material";
+import { Typography, Checkbox, IconButton, Box } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 
 export default function TodoItem({ todo, toggleComplete, deleteItem }) {
 	return (
-		<div
-			style={{
+		<Box
+			sx={{
 				display: "flex",
 				justifyContent: "space-between",
 				alignItems: "center",
+				width: "450px",
+				height: "40px",
+				borderBottom: "1px solid rgba(0, 0, 0, 0.5)",
 			}}>
-			<div
-				style={{
+			<Box
+				sx={{
 					display: "flex",
 					flexDirection: "row",
 					alignItems: "center",
@@ -19,6 +22,7 @@ export default function TodoItem({ todo, toggleComplete, deleteItem }) {
 				<Checkbox
 					id={todo.id}
 					checked={todo.complete}
+					size="small"
 				/>
 				<Typography
 					style={{
@@ -27,13 +31,13 @@ export default function TodoItem({ todo, toggleComplete, deleteItem }) {
 					}}>
 					{todo.text}
 				</Typography>
-			</div>
+			</Box>
 			<IconButton
 				onClick={deleteItem}
 				aria-label="delete"
 				size="small">
 				<ClearIcon />
 			</IconButton>
-		</div>
+		</Box>
 	);
 }
