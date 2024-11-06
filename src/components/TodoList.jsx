@@ -115,7 +115,8 @@ export default function TodoList() {
 						onClick={() =>
 							setTodos(todos.filter((todo) => todo.complete === false))
 						}
-						size="small">
+						size="small"
+						disabled={!todos.some((todo) => todo.complete)}>
 						Clear completed
 					</Button>
 				</Box>
