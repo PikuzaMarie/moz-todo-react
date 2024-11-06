@@ -1,6 +1,6 @@
 import TodoForm from "./TodoForm";
 import { useState } from "react";
-import { ButtonGroup, Button, Paper } from "@mui/material";
+import { Box, ButtonGroup, Button, Paper } from "@mui/material";
 import TodoItem from "./TodoItem";
 
 export default function TodoList() {
@@ -42,11 +42,37 @@ export default function TodoList() {
 					deleteItem={() => deleteItem(todo.id)}
 				/>
 			))}
-			<ButtonGroup variant="outlined">
-				<Button onClick={() => setTodosToShow("all")}>All</Button>
-				<Button onClick={() => setTodosToShow("active")}>Active</Button>
-				<Button onClick={() => setTodosToShow("completed")}>Completed</Button>
-			</ButtonGroup>
+			<Box>
+				<div>
+					{todos.filter((todo) => todo.complete === false).length} items left
+				</div>
+				<ButtonGroup
+					variant="outlined"
+					size="small">
+					<Button
+						onClick={() => setTodosToShow("all")}
+						size="small">
+						All
+					</Button>
+					<Button
+						onClick={() => setTodosToShow("active")}
+						size="small">
+						Active
+					</Button>
+					<Button
+						onClick={() => setTodosToShow("completed")}
+						size="small">
+						Completed
+					</Button>
+				</ButtonGroup>
+			</Box>
+			<Button
+				onClick={() =>
+					setTodos(todos.filter((todo) => todo.complete === false))
+				}
+				size="small">
+				Clear completed
+			</Button>
 		</Paper>
 	);
 }
