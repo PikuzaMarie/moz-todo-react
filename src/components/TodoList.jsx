@@ -14,6 +14,10 @@ export default function TodoList() {
 		);
 	};
 
+	const deleteItem = (id) => {
+		setTodos(todos.filter((todo) => todo.id !== id));
+	};
+
 	return (
 		<Paper>
 			<TodoForm onSubmit={(todoItem) => setTodos([todoItem, ...todos])} />
@@ -22,6 +26,7 @@ export default function TodoList() {
 					key={todo.id}
 					todo={todo}
 					toggleComplete={() => toggleComplete(todo.id)}
+					deleteItem={() => deleteItem(todo.id)}
 				/>
 			))}
 		</Paper>
