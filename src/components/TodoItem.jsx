@@ -1,6 +1,6 @@
 import { Typography, Checkbox } from "@mui/material";
 
-export default function TodoItem({ todo }) {
+export default function TodoItem({ todo, toggleComplete }) {
 	return (
 		<div
 			style={{
@@ -11,10 +11,11 @@ export default function TodoItem({ todo }) {
 			<Checkbox
 				id={todo.id}
 				checked={todo.complete}
+				onChange={toggleComplete}
 			/>
 			<Typography
 				style={{
-					textDecoration: todo.complete ? "line-thorugh" : " ",
+					textDecoration: todo.complete ? "line-through" : " ",
 					color: todo.complete ? "gray" : "black",
 				}}>
 				{todo.text}
