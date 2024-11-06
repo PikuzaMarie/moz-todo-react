@@ -1,4 +1,4 @@
-import { Button, TextField, Alert } from "@mui/material";
+import { Box, Button, TextField, Alert } from "@mui/material";
 import shortid from "shortid";
 import { useState } from "react";
 
@@ -29,22 +29,32 @@ export default function TodoForm({ onSubmit }) {
 				<Alert
 					severity="warning"
 					onClose={() => setError(false)}>
-					Todofield is empty!
+					Todo is empty!
 				</Alert>
 			)}
-			<TextField
-				variant="outlined"
-				value={text}
-				size="small"
-				label="What are you up to?"
-				onChange={(e) => setText(e.target.value)}
-			/>
-			<Button
-				variant="contained"
-				size="medium"
-				type="submit">
-				Add
-			</Button>
+			<Box
+				sx={{
+					display: "flex",
+					flexDirection: "row",
+					justifyContent: "space-between",
+					alignItems: "center",
+					width: "450px",
+				}}>
+				<TextField
+					variant="standard"
+					value={text}
+					size="small"
+					label="What are you up to?"
+					onChange={(e) => setText(e.target.value)}
+					sx={{ width: "370px", margin: "0 0 8px 8px" }}
+				/>
+				<Button
+					variant="contained"
+					size="medium"
+					type="submit">
+					Add
+				</Button>
+			</Box>
 		</form>
 	);
 }
