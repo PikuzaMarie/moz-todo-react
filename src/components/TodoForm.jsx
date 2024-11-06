@@ -1,12 +1,18 @@
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Alert } from "@mui/material";
 import shortid from "shortid";
 import { useState } from "react";
 
 export default function TodoForm({ onSubmit }) {
 	const [text, setText] = useState("");
+	const [error, setError] = useState(false);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
+		if (!text) {
+			setError(true);
+			return;
+		}
 
 		onSubmit({
 			id: shortid.generate(),
@@ -19,6 +25,13 @@ export default function TodoForm({ onSubmit }) {
 
 	return (
 		<form onSubmit={handleSubmit}>
+			{error && (
+				<Alert
+					severity="warning"
+					onClose={() => setError(false)}>
+					Todofield is empty!
+				</Alert>
+			)}
 			<TextField
 				variant="outlined"
 				value={text}
