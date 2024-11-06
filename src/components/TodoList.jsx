@@ -1,10 +1,11 @@
 import TodoForm from "./TodoForm";
 import { useState } from "react";
-import { Paper } from "@mui/material";
+import { ButtonGroup, Button, Paper } from "@mui/material";
 import TodoItem from "./TodoItem";
 
 export default function TodoList() {
 	const [todos, setTodos] = useState([]);
+	const [todosToShow, setTodosToShow] = useState("all");
 
 	const toggleComplete = (id) => {
 		setTodos(
@@ -18,10 +19,22 @@ export default function TodoList() {
 		setTodos(todos.filter((todo) => todo.id !== id));
 	};
 
+	const getFilteredTodos = (filter) => {
+		if (filter === "active") {
+			return todos.filter((todo) => todo.complete === false);
+		} else if (filter === "completed") {
+			return todos.filter((todo) => todo.complete === true);
+		} else {
+			return [...todos];
+		}
+	};
+
+	const filteredTodos = getFilteredTodos(todosToShow);
+
 	return (
 		<Paper>
 			<TodoForm onSubmit={(todoItem) => setTodos([todoItem, ...todos])} />
-			{todos.map((todo) => (
+			{filteredTodos.map((todo) => (
 				<TodoItem
 					key={todo.id}
 					todo={todo}
@@ -29,6 +42,11 @@ export default function TodoList() {
 					deleteItem={() => deleteItem(todo.id)}
 				/>
 			))}
+			<ButtonGroup variant="outlined">
+				<Button onClick={() => setTodosToShow("all")}>All</Button>
+				<Button onClick={() => setTodosToShow("active")}>Active</Button>
+				<Button onClick={() => setTodosToShow("completed")}>Completed</Button>
+			</ButtonGroup>
 		</Paper>
 	);
 }
