@@ -1,6 +1,6 @@
 import TodoForm from "./TodoForm";
 import { useState } from "react";
-import { Box, ButtonGroup, Button, Paper } from "@mui/material";
+import { Box, ButtonGroup, Button, Paper, Typography } from "@mui/material";
 import TodoItem from "./TodoItem";
 
 export default function TodoList() {
@@ -32,47 +32,94 @@ export default function TodoList() {
 	const filteredTodos = getFilteredTodos(todosToShow);
 
 	return (
-		<Paper>
-			<TodoForm onSubmit={(todoItem) => setTodos([todoItem, ...todos])} />
-			{filteredTodos.map((todo) => (
-				<TodoItem
-					key={todo.id}
-					todo={todo}
-					toggleComplete={() => toggleComplete(todo.id)}
-					deleteItem={() => deleteItem(todo.id)}
-				/>
-			))}
-			<Box>
-				<div>
-					{todos.filter((todo) => todo.complete === false).length} items left
-				</div>
-				<ButtonGroup
-					variant="outlined"
-					size="small">
-					<Button
-						onClick={() => setTodosToShow("all")}
+		<Box
+			sx={{
+				display: "flex",
+				flexDirection: "column",
+				alignItems: "center",
+				gap: "20px",
+			}}>
+			<Typography
+				variant="h4"
+				component="h1"
+				textAlign="center">
+				TO-DO app
+			</Typography>
+			<Paper
+				variant="outlined"
+				sx={{
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "center",
+					alignItems: "center",
+					width: "450px",
+				}}>
+				<TodoForm onSubmit={(todoItem) => setTodos([todoItem, ...todos])} />
+				{filteredTodos.map((todo) => (
+					<TodoItem
+						key={todo.id}
+						todo={todo}
+						toggleComplete={() => toggleComplete(todo.id)}
+						deleteItem={() => deleteItem(todo.id)}
+					/>
+				))}
+				<Box
+					sx={{
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "space-between",
+						alignItems: "center",
+						width: "450px",
+						margin: "16px",
+					}}>
+					<Typography
+						variant="body2"
+						component="p"
+						color="gray"
+						ml={1}>
+						{todos.filter((todo) => todo.complete === false).length} items left
+					</Typography>
+					<ButtonGroup
+						variant="outlined"
 						size="small">
-						All
-					</Button>
+						<Button
+							onClick={() => setTodosToShow("all")}
+							size="small"
+							sx={{
+								bgcolor: todosToShow === "all" ? "#1976d2" : "inherit",
+								color: todosToShow === "all" ? "white" : "inherit",
+							}}>
+							All
+						</Button>
+						<Button
+							onClick={() => setTodosToShow("active")}
+							size="small"
+							sx={{
+								bgcolor: todosToShow === "active" ? "#1976d2" : "inherit",
+								color: todosToShow === "active" ? "white" : "inherit",
+							}}>
+							Active
+						</Button>
+						<Button
+							onClick={() => setTodosToShow("completed")}
+							size="small"
+							sx={{
+								bgcolor: todosToShow === "completed" ? "#1976d2" : "inherit",
+								color: todosToShow === "completed" ? "white" : "inherit",
+								textAlign: "center",
+							}}>
+							Completed
+						</Button>
+					</ButtonGroup>
 					<Button
-						onClick={() => setTodosToShow("active")}
+						onClick={() =>
+							setTodos(todos.filter((todo) => todo.complete === false))
+						}
 						size="small">
-						Active
+						Clear completed
 					</Button>
-					<Button
-						onClick={() => setTodosToShow("completed")}
-						size="small">
-						Completed
-					</Button>
-				</ButtonGroup>
-			</Box>
-			<Button
-				onClick={() =>
-					setTodos(todos.filter((todo) => todo.complete === false))
-				}
-				size="small">
-				Clear completed
-			</Button>
-		</Paper>
+				</Box>
+			</Paper>
+		</Box>
 	);
 }
